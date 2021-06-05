@@ -1,17 +1,28 @@
+//Game States
+//  "WIN" - Player robot has defeated all enemy-robots
+//      *Fight all enemy robots
+//      *Defeat all enemy robots
+//  "LOSE" - Player robot's health is zero or less
+
+
+
+
+// Global Variables Start
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
-console.log(playerName, playerHealth, playerAttack);
-
-var enemyName = "Roborto";
+var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
+//Global Variables End
 
-console.log(enemyName, enemyHealth, enemyAttack);
 
-var fight =function(){
+
+// The Fight Function is being defined here
+
+var fight =function(enemyName){
     window.alert("Welcome to Robot Gladiators!");
 
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP to choose.");
@@ -61,7 +72,7 @@ var fight =function(){
         playerMoney = playerMoney - 2;
         }
 
-        //if no (false) ask question again by running fight() again.
+        //if no (false) ask question again by running fight() again
         else {
             fight();
         }
@@ -70,5 +81,8 @@ var fight =function(){
         window.alert("You need to choose a valid option. Try again!");
     }
 };
+// Fight function definition ends here
 
-fight();
+for(var i = 0; i < enemyNames.length; i++) {
+    fight(enemyNames[i]);
+}
