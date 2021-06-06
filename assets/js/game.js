@@ -8,30 +8,47 @@
 
 // The Fight Function is being defined here
 
+var fightOrSkip = function () {
+    // ask player if they'd like to fight or skip using fightOrSkip function
+    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.')
+
+    if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again.");
+        return fightOrSkip();
+    }
+
+
+    //if player picks "skip" confirm and then leave the loop
+    promptFight = promptFight.toLocaleLowerCase();
+
+    if (promptFight === "skip") {
+        //confirm player wants to skip
+        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+        //if yes(true) leave fight
+        if (confirmSkip) {
+            window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+            //subtract money from playerMoney for skipping
+            playerInfo.money = playerInfo.money - 10;
+            
+            //return true if a player wants to leave
+            return true;
+        }
+    }
+    return false;
+}
+
+
 var fight =function(enemy){
 
     // repeat and execute as long as the enemy-robot is alive
     while (playerInfo.health > 0 && enemy.health > 0){
 
-        //window.alert("Welcome to Robot Gladiators!");
+            if (fightOrSkip()) {
 
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP to choose.");
-
-        // if player picks "skip" confirm then stop the loop
-        if (promptFight === "skip" || promptFight === "SKIP") {
-        
-            //confirm player wants to skip
-            var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-            // if yes (true), leave fight
-            if (confirmSkip){
-            window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-            //subtract money from playerMoney for skipping
-            playerInfo.money = Math.max(0, playerInfo.money - 10);
-            console.log("playerMoney", playerInfo.money);
-            break;
-            }
-        } 
+                // if true, ;eave fight by breakin loop
+                break;
+            } 
 
          //remove enemy's health by subtracting the ammount set in the playerAttack variable
         
