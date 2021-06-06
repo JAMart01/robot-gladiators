@@ -29,7 +29,7 @@ var fightOrSkip = function () {
         if (confirmSkip) {
             window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
             //subtract money from playerMoney for skipping
-            playerInfo.money = playerInfo.money - 10;
+            playerInfo.money = Math.max(0, playerInfo.money - 10);
             
             //return true if a player wants to leave
             return true;
@@ -163,25 +163,24 @@ var endGame = function() {
 var shop = function() {
     //ask player what they'd like to do
     var shopOptionPrompt = window.prompt (
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
     );
+
+    shopOptionPrompt = parseInt(shopOptionPrompt);
     //use switch to carry out an action
     switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
-            window.alert("Refilled 20 health in exchange for 7 dollars.");
+        case 1:
+            
             playerInfo.refillHealth();
             break;
 
-        case "UPGRADE":
-        case "upgrade": 
-            window.alert("Increased attack by 6 in exchange for 7 dollars.")
+        case 2: 
+            
             playerInfo.upgradeAttack();
             break;
 
 
-        case "LEAVE":
-        case "leave": 
+        case 3: 
             window.alert("Leaving the store.");
 
             //do nothing so function will end
@@ -231,6 +230,7 @@ var playerInfo = {
         if (this.money >= 7){
             this.health += 20;
             this.money -= 7;
+            window.alert("Refilled 20 health in exchange for 7 dollars.");
         }
         else {
             window.alert("You don't have enough money!");
@@ -238,8 +238,9 @@ var playerInfo = {
     }, //comma!
     upgradeAttack: function() {
         if (this.money >= 7){
-        this.attack += 6;
-        this.money -= 7;
+            this.attack += 6;
+            this.money -= 7;
+            window.alert("Increased attack by 6 in exchange for 7 dollars.");
         }
         else {
             window.alert("You don't have enough money!");
