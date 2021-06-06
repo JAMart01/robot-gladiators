@@ -17,7 +17,6 @@ var fightOrSkip = function () {
         return fightOrSkip();
     }
 
-
     //if player picks "skip" confirm and then leave the loop
     promptFight = promptFight.toLocaleLowerCase();
 
@@ -41,12 +40,24 @@ var fightOrSkip = function () {
 
 var fight =function(enemy){
 
+    //keep track of who goes first
+    var isPlayerTurn = true;
+
+    //randomly change player turn
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+    }
+
+
     // repeat and execute as long as the enemy-robot is alive
     while (playerInfo.health > 0 && enemy.health > 0){
 
+        if (isPlayerTurn){
+
+            //ask player if they'd like to fight or skip using the fightOrSkip function
             if (fightOrSkip()) {
 
-                // if true, ;eave fight by breakin loop
+                // if true, leave fight by breaking loop
                 break;
             } 
 
@@ -72,6 +83,8 @@ var fight =function(enemy){
             } else {
                 window.alert(enemy.name + " still has " + enemy.health + " health left.");
             }
+        }
+        else {
 
             //remove players health by subtracting the ammount set in the enemyAttack variable
             var damage = randomNumber(enemy.attack - 3, enemy.attack);
@@ -90,6 +103,9 @@ var fight =function(enemy){
             } else {
                 window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
             }
+        }
+        //switch turn order for next round
+        isPlayerTurn = !isPlayerTurn;
         } 
     };
 // Fight function definition ends here
